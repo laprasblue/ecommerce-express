@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import UserController from '../controllers/user.controller';
-import handleValidate from '../middleware/handle-validate';
+import bodyValidator from '../middleware/body-validator';
 import { verifyToken } from '../middleware/jwt';
 import {
   CreateUserScheme,
+  DisableUserScheme,
+  ResetPasswordScheme,
   UpdateUserScheme,
 } from '../validators/user.validator';
 
@@ -12,15 +14,27 @@ const userRoute = Router();
 userRoute.get('/', verifyToken, UserController.getUser);
 userRoute.post(
   '/',
-  handleValidate(CreateUserScheme),
+  bodyValidator(CreateUserScheme.body),
   UserController.createUser
 );
 userRoute.put(
   '/',
-  handleValidate(UpdateUserScheme),
   verifyToken,
+  bodyValidator(UpdateUserScheme.body),
   UserController.updateUser
 );
-userRoute.delete('/', verifyToken, UserController.disableUser);
+
+userRoute.put(
+  '/reset-password',
+  verifyToken,
+  bodyValidator(ResetPasswordScheme.body),
+  UserController.resetPassword
+);
+userRoute.delete(
+  '/',
+  verifyToken,
+  bodyValidator(DisableUserScheme.body),
+  UserController.disableUser
+);
 
 export default userRoute;

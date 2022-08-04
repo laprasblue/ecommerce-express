@@ -3,7 +3,7 @@ import createHttpError from 'http-errors';
 
 const handleError = (req: Request, res: Response, next: NextFunction) => {
   const { error } = res.locals;
-  console.log(error);
+  if (error === undefined) return next();
   if (res.locals.error?.name === 'MongoServerError') {
     return next(
       createHttpError(
@@ -12,6 +12,7 @@ const handleError = (req: Request, res: Response, next: NextFunction) => {
       )
     );
   }
+  console.log(error);
   return next(createHttpError(500, 'Something wrong...'));
 };
 

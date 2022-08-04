@@ -2,8 +2,11 @@ import UserModel from '../models/user.model';
 
 export interface IUpdateUser {
   email: String;
-  password: String;
   fullName: String;
+}
+export interface IResetPassword {
+  email: String;
+  password: String;
 }
 
 export interface IUser {
@@ -22,17 +25,26 @@ const UserService = {
     const user = await UserModel.create(User);
     return user;
   },
-  updateUser: async ({ email, password, fullName }: IUpdateUser) => {
+  updateUser: async ({ fullName, email }: IUpdateUser) => {
     const user = await UserModel.findOneAndUpdate(
       { email },
-      { password, fullName }
+      {
+        fullName,
+      }
     );
+    return user;
+  },
+  resetPassword: async ({ password, email }: IResetPassword) => {
+    const user = await UserModel.findOne({ email });
+    if (!user) return null;
+    user.password = password;
+    user.save();
     return user;
   },
   disableUser: async (email: String) => {
     const user = await UserModel.findOneAndUpdate(
       { email },
-      { isActive: true }
+      { isActive: false }
     );
     return user;
   },

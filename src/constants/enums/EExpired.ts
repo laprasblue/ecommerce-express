@@ -1,5 +1,5 @@
 export enum ETokenExpired {
-  TOKEN = '5s',
+  TOKEN = '1h',
   REFRESH_TOKEN = '2d',
 }
 export enum ECartExpired {

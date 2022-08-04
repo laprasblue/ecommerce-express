@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema<IUser, TUserModel, IUserMethods>(
     },
     isActive: {
       type: Boolean,
+      default: true,
     },
     phoneNumber: {
       type: String,
