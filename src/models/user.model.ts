@@ -1,6 +1,6 @@
 import bcrypt, { compare } from 'bcrypt';
 import createHttpError from 'http-errors';
-import mongoose from 'mongoose';
+import { model, Model, Schema } from 'mongoose';
 import ERole from '../constants/enums/ERole';
 
 interface IUser {
@@ -16,9 +16,9 @@ interface IUserMethods {
   isCheckPassword(password: String): Boolean;
 }
 
-type TUserModel = mongoose.Model<IUser, {}, IUserMethods>;
+type TUserModel = Model<IUser, {}, IUserMethods>;
 
-const UserSchema = new mongoose.Schema<IUser, TUserModel, IUserMethods>(
+const UserSchema = new Schema<IUser, TUserModel, IUserMethods>(
   {
     email: {
       type: String,
@@ -48,7 +48,7 @@ const UserSchema = new mongoose.Schema<IUser, TUserModel, IUserMethods>(
   },
   {
     timestamps: true,
-    collection: 'user',
+    collection: 'users',
   }
 );
 
@@ -70,5 +70,5 @@ UserSchema.method('isCheckPassword', async function (password) {
   return isCompare;
 });
 
-const UserModel = mongoose.model<IUser, TUserModel>('User', UserSchema);
+const UserModel = model<IUser, TUserModel>('users', UserSchema);
 export default UserModel;

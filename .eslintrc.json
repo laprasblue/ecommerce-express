@@ -22,6 +22,7 @@
     "no-restricted-syntax": "off",
     "func-names": "off",
     "prefer-arrow-callback": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "linebreak-style": "off"
   }
 }
