@@ -3,12 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["airbnb-base", "eslint:recommended"],
+  "extends": ["airbnb-base", "eslint:recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "plugins": ["@typescript-eslint", "import"],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
   "rules": {
     "import/no-unresolved": "off",
     "import/extensions": "off",
@@ -23,6 +23,7 @@
     "func-names": "off",
     "prefer-arrow-callback": "off",
     "no-shadow": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "prettier/prettier": ["error"]
   }
 }
